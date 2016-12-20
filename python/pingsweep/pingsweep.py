@@ -95,7 +95,7 @@ def setup_logs():
     """ Set up logger to be used between all modules.
 
     Set logging root and file handler configuration to default to
-    ``DEBUG`` and write output to ``search.log``. Set console
+    ``DEBUG`` and write output to ``sweep.log``. Set console
     handler to default to ``ERROR``.
 
     """
@@ -104,7 +104,7 @@ def setup_logs():
     _logger.setLevel(logging.DEBUG)
 
     # create file handler which logs messages
-    fh = logging.FileHandler('search.log')
+    fh = logging.FileHandler('sweep.log')
     fh.setLevel(logging.DEBUG)
 
     # create console handler with a higher log level
