@@ -12,8 +12,9 @@ import argparse
 import sys
 import logging
 import time
+import ipaddress
 
-import pinger 
+from sweeper import sweeper
 
 __author__ = "Derek Goddeau"
 
@@ -28,18 +29,35 @@ def main(args):
     setup_logs()
     _logger.debug("Starting main()")
 
+    ips = []
     args = parse_args(args)
     if args.a:
         for ip in args.ips:
-            print("[*] Scanning class A network {}".format(ip))
+            print("[*] Scanning class A network {}/8".format(ip))
+            ip_range = ipaddress.ip_network(u'{}/24'.format(ip))
+            ip_list = list(ip_range)
+            for ip in ip_list:
+                ip = str(ip)
+        sweeper(ip_list, args.threads)
     elif args.b:
         for ip in args.ips:
-            print("[*] Scanning class B network {}".format(ip))
+            print("[*] Scanning class B network {}/16".format(ip))
+            ip_range = ipaddress.ip_network(u'{}/24'.format(ip))
+            ip_list = list(ip_range)
+            for ip in ip_list:
+                ip = str(ip)
+        sweeper(ip_list, args.threads)
     elif args.c:
         for ip in args.ips:
-            print("[*] Scanning class C network {}".format(ip))
+            print("[*] Scanning class C network {}/24".format(ip))
+            ip_range = ipaddress.ip_network(u'{}/24'.format(ip))
+            ip_list = list(ip_range)
+            for ip in ip_list:
+                ip = str(ip)
+        sweeper(ip_list, args.threads)
     else:
-        main(['-h'])
+        print("[*] Scanning list of IP addresses".format(ip))
+        sweeper(args.ips, args.threads)
 
     _logger.debug("All done, shutting down.")
     logging.shutdown()
@@ -76,7 +94,7 @@ def parse_args(args):
         action="store_true"),
     parser.add_argument(
         '-t',
-        '-threads',
+        '--threads',
         nargs='?',
         type=int,
         default=1,

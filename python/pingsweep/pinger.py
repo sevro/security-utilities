@@ -9,24 +9,24 @@ Run a fast pingsweep of a given IP range.
 from __future__ import division, print_function, absolute_import
 
 import logging
-import ipaddress
-from subprocess import Popen
+import subprocess
+from Queue import Queue
 
 __author__ = "Derek Goddeau"
 
 _logger = logging.getLogger(__name__)
 
 
-def pinger(net_class, ipaddress):
-    """ Ping subnet
+def pinger(thread, queue):
+    """ Pings given IPs
 
     """
-    if net_class == 'a':
-        ipv4 = ipaddress.ip_network("{}/24".format(ipaddress))
-    elif net_class == 'b':
-        ipv4 = ipaddress.ip_network("{}/24".format(ipaddress))
-    elif net_class == 'c':
-        ipv4 = ipaddress.ip_network("{}/24".format(ipaddress))
-    else:
-        # ping the ip
-        pass
+    while True:
+        ip = queue.get()
+        result = subprocess.call("ping -c 1 -i 0.2 -W 1 {}".format(ip),
+                shell=True,
+                stdout=open('/dev/null', 'w'),
+                stderr=subprocess.STDOUT)
+        if result == 0:
+            print("{}: is alive".format(ip))
+        queue.task_done()
