@@ -1,13 +1,9 @@
-Bash Utilities
-==============
+# Security Utilities
 
-sumdom
-------
+Useful scripts, see `README.md` files in script directories for usage and information.
 
-Input: url
+## bash
 
-Output:
+* `subdom.sh`: get subdomain information for a webpage
 
-*   `url_list.txt`: All urls linked on the page
-*   `host_list.txt`: Host with IP addresses
-*   `ip_list.txt`: Just IP addresses
+## Python
