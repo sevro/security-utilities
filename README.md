@@ -10,3 +10,4 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 ## Python
 
 *   `port_check.py`: Check if a single port is open [README](python/port_check/README.md) 
+*   `pingsweep.py`: Multithreaded ping sweep [README](python/pingsweep/README.md) 
