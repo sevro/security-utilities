@@ -28,5 +28,5 @@ def pinger(thread, queue):
                 stdout=open('/dev/null', 'w'),
                 stderr=subprocess.STDOUT)
         if result == 0:
-            print("{}: is alive".format(ip))
+            print("{}".format(ip))
         queue.task_done()
