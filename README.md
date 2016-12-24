@@ -6,8 +6,15 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 
 *   `subdom.sh`: get subdomain information for a webpage [README](bash/subdom/README.md)
 *   `pingsweep.sh`: Ping sweep a class C network [README](bash/pingsweep/README.md)
+*   `forward_dns.sh`: Run a forward DNS lookup on a domain name for subdomains [README](bash/forward_dns/README.md)
+*   `reverse_dns.sh`: Run a reverse DNS lookup on an IP address and given IP range [README](bash/reverse_dns/README.md)
 
 ## Python
 
 *   `port_check.py`: Check if a single port is open [README](python/port_check/README.md) 
 *   `pingsweep.py`: Multithreaded ping sweep [README](python/pingsweep/README.md) 
+
+## Note
+
+All program output files are by convention use the `.txt.` extension which are ignored by the
+`.gitignore`. All files for input are by convention `.dat` which will be tracked.
