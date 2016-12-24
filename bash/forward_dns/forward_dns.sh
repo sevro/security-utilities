@@ -8,7 +8,7 @@
 
 echo "[*] Scanning $2 for all subdomains listed in $1"
 for name in $(cat "$1"); do
-    host $name.$2 | grep "has address" | cut -d " " -f 1,4 >> $2.subdomains.txt
+    host $name.$2 | grep "has address" | cut -d " " -f 1,4 | tee -a  $2.subdomains.txt
 done
 
 sort -u $2.subdomains.txt > tmp && mv tmp $2.subdomains.txt
