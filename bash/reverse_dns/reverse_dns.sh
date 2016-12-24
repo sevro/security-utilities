@@ -9,7 +9,7 @@
 
 echo "[*] Scanning $1 in range $2 to $3"
 for ip in $(seq "$2" "$3"); do
-    host $1.$ip | grep "$4" | cut -d " " -f 1,5 >> $1.subdomains.txt
+    host $1.$ip | grep "$4" | cut -d " " -f 1,5 | tee -a  $1.subdomains.txt
 done
 echo "[*] filtered all domains without the string $4"
 
