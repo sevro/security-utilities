@@ -2,6 +2,14 @@
 
 Useful scripts, see `README.md` files in script directories for usage and information.
 
+> Legal Disclaimer: usage of tools for attacking web servers without
+> prior mutual consistency can be considered as an illegal activity. it is the final user's 
+> responsibility to obey all applicable local, state and federal laws. authors assume no 
+> liability and are not responsible for any misuse or damage caused by these tools.
+>
+> Even information gathering such as port scanning is considered illegal in many areas
+> and a gery area in most.
+
 ## bash
 
 *   `subdom.sh`: get subdomain information for a webpage [README](bash/subdom/README.md)
