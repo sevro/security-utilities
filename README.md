@@ -8,6 +8,8 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 *   `pingsweep.sh`: Ping sweep a class C network [README](bash/pingsweep/README.md)
 *   `forward_dns.sh`: Run a forward DNS lookup on a domain name for subdomains [README](bash/forward_dns/README.md)
 *   `reverse_dns.sh`: Run a reverse DNS lookup on an IP address and given IP range [README](bash/reverse_dns/README.md)
+*   `dns_zonetransfer.sh`:  Check for DNS server information leakage [README](bash/dns_zonetransfer/README.md)
+*   `port_scan.sh`: Scan the full range (1-65355) on list of IPs [README](bash/port_scan/README.md)
 
 ## Python
 
