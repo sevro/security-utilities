@@ -1,6 +1,6 @@
 # Ping Sweep
 
-Multithreaded ping sweep.
+Multithreaded ping sweep, port scanning, and SMTP 'VRFY' username checking..
 
 ## Usage
 
