@@ -2,6 +2,7 @@
 *.txt
 *.swp
 *.bck
+*.swo
 
 ##########
 # Python #

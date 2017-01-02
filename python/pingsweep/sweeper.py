@@ -19,13 +19,17 @@ __author__ = "Derek Goddeau"
 
 _logger = logging.getLogger(__name__)
 
-def sweeper(ips, threads):
+def sweeper(ips, threads, scan_type):
     """ Start threads, put ips in queue 
 
     """
     queue = Queue()
+    print("[*] Starting scan with {} threads".format(threads))
     for thread_id in range(threads):
-	worker = Thread(target=pinger.pinger, args=(thread_id, queue))
+        if scan_type == 'ICMP':
+            worker = Thread(target=pinger.icmp_pinger, args=(thread_id, queue))
+        elif scan_type == 'SMTP':
+            worker = Thread(target=pinger.smtp_pinger, args=(thread_id, queue))
 	worker.setDaemon(True)
 	worker.start()
     for ip in ips:

@@ -14,7 +14,8 @@ import logging
 import time
 import ipaddress
 
-from sweeper import sweeper
+from sweeper import *
+from utilities import *
 
 __author__ = "Derek Goddeau"
 
@@ -31,33 +32,30 @@ def main(args):
 
     ips = []
     args = parse_args(args)
+    print("[*] Scanning IP addresses: {}".format(args.ips))
     if args.a:
-        for ip in args.ips:
-            print("[*] Scanning class A network {}/8".format(ip))
-            ip_range = ipaddress.ip_network(u'{}/24'.format(ip))
-            ip_list = list(ip_range)
-            for ip in ip_list:
-                ip = str(ip)
-        sweeper(ip_list, args.threads)
+        ips = get_addresses('a', args.ips)
+        if args.ICMP:
+            icmp_sweeper(ips, args.threads, 'ICMP')
+        elif args.SMTP:
+            smtp_sweeper(ips, args.threads, 'SMTP')
     elif args.b:
-        for ip in args.ips:
-            print("[*] Scanning class B network {}/16".format(ip))
-            ip_range = ipaddress.ip_network(u'{}/24'.format(ip))
-            ip_list = list(ip_range)
-            for ip in ip_list:
-                ip = str(ip)
-        sweeper(ip_list, args.threads)
+        ips = get_addresses('b', args.ips)
+        if args.ICMP:
+            icmp_sweeper(ips, args.threads, 'ICMP')
+        elif args.SMTP:
+            smtp_sweeper(ips, args.threads, 'SMTP')
     elif args.c:
-        for ip in args.ips:
-            print("[*] Scanning class C network {}/24".format(ip))
-            ip_range = ipaddress.ip_network(u'{}/24'.format(ip))
-            ip_list = list(ip_range)
-            for ip in ip_list:
-                ip = str(ip)
-        sweeper(ip_list, args.threads)
+        ips = get_addresses('c', args.ips)
+        if args.ICMP:
+            sweeper(ips, args.threads, 'ICMP')
+        elif args.SMTP:
+            sweeper(ips, args.threads, 'SMTP')
     else:
-        print("[*] Scanning list of IP addresses".format(ip))
-        sweeper(args.ips, args.threads)
+        if args.ICMP:
+            sweeper(args.ips, args.threads, 'ICMP')
+        elif args.SMTP:
+            sweeper(args.ips, args.threads, 'SMTP')
 
     _logger.debug("All done, shutting down.")
     logging.shutdown()
@@ -77,6 +75,7 @@ def parse_args(args):
     parser = argparse.ArgumentParser(
         description="Ping sweep a network to find hosts")
     net_class = parser.add_mutually_exclusive_group()
+    scan_type = parser.add_mutually_exclusive_group()
     net_class.add_argument(
         '-a',
         '--a',
@@ -92,6 +91,16 @@ def parse_args(args):
         '--c',
         help="Scan a class C network",
         action="store_true"),
+    scan_type.add_argument(
+        '-S',
+        '--SMTP',
+        help="Scan for SMTP",
+        action="store_true"),
+    scan_type.add_argument(
+        '-I',
+        '--ICMP',
+        help="Scan IP range for hosts using ICMP",
+        action="store_true"),
     parser.add_argument(
         '-t',
         '--threads',
@@ -100,6 +109,22 @@ def parse_args(args):
         default=1,
         const=1,
         help="Number of threads to use",
+        action='store'),
+    parser.add_argument(
+        '-i',
+        '--ip-file',
+        nargs='?',
+        type=argparse.FileType('r'),
+        default="-",
+        help="",
+        action='store'),
+    parser.add_argument(
+        '-u',
+        '--username-file',
+        nargs='?',
+        type=argparse.FileType('r'),
+        default="-",
+        help="",
         action='store'),
     parser.add_argument(
         'ips',
