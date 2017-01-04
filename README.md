@@ -24,6 +24,7 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 *   `port_check.py`: Check if a single port is open [README](python/port_check/README.md) 
 *   `pingsweep.py`: Multithreaded ping sweep, and port scanning [README](python/pingsweep/README.md) 
 *   `fuzzer.py`: A fuzzer [README](python/fuzzer/README.md) 
+*   `slmail.py`: A buffer overflow attack for SLMail 5.5 [README](python/SLMail-pwn/README.md) 
 
 ## Note
 
