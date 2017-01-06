@@ -32,6 +32,10 @@ def main(args):
         pwn(args.ip, args.port, 'test')
     elif args.unique:
         pwn(args.ip, args.port, 'unique')
+    elif args.chars:
+        pwn(args.ip, args.port, 'chars')
+    elif args.breakpoint:
+        pwn(args.ip, args.port, 'break')
     else:
         pwn(args.ip, args.port, 'attack')
 
@@ -61,6 +65,16 @@ def parse_args(args):
         '-u',
         '--unique',
         help="Send unique string payload to determine offset",
+        action="store_true"),
+    parser.add_argument(
+        '-c',
+        '--chars',
+        help="Send buffer with set of chars to test for bad chars",
+        action="store_true"),
+     parser.add_argument(
+        '-b',
+        '--breakpoint',
+        help="Send buffer with address to JMP ESP and a breakpoint on return",
         action="store_true"),
     parser.add_argument(
         'ip',
