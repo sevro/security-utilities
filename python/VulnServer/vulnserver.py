@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-""" slmail.py
+""" vulnserver.py
 
-Pwn SLMail with a buffer overflow.
+Pwn VulnServer with a buffer overflow.
 
 """
 
