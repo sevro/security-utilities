@@ -26,6 +26,7 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 *   `fuzzer.py`: A fuzzer [README](python/fuzzer/README.md) 
 *   `slmail.py`: A buffer overflow attack for SLMail 5.5 [README](python/SLMail-pwn/README.md) 
 *   `vulnserver.py`: A buffer overflow attack for the `vulnserver.exe` exercise in OSCP [README](python/SLMail-pwn/README.md) 
+*   `crossfire.py`: A buffer overflow attack for the Crossfire Linux game [README](python/crossfire/README.md) 
 
 ## Note
 
