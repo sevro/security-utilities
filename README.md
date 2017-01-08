@@ -35,5 +35,5 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 
 ## Note
 
-All program output files are by convention use the `.txt.` extension which are ignored by the
+All program output files are by convention use the `.txt` extension which are ignored by the
 `.gitignore`. All files for input are by convention `.dat` which will be tracked.
