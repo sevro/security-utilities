@@ -1,3 +1,11 @@
+Unless otherwise noted in the header of a file all software is under
+the terms of the GNU GPLv3 given below. Some code is a modified
+version of exploits from other sources such as exploit-db, in such
+cases the copyright remains with the author and it will be noted in the
+header of the file.
+
+-----------------------------------------------------------------------
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
