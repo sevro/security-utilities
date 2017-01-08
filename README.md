@@ -31,7 +31,7 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 ## C
 
 *   `slmail-linux.c`: A buffer overflow attack for SLMail 5.5 compiled for Linux [README](c/slmail-linux/README.md) 
-*   `slmail-windows.c`: A buffer overflow attack for SLMail 5.5 compiled for Windows [README](c/slmail-linux/README.md) 
+*   `slmail-windows.c`: A buffer overflow attack for SLMail 5.5 compiled for Windows [README](c/slmail-windows/README.md) 
 
 ## Note
 
