@@ -28,6 +28,10 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 *   `vulnserver.py`: A buffer overflow attack for the `vulnserver.exe` exercise in OSCP [README](python/SLMail-pwn/README.md) 
 *   `crossfire.py`: A buffer overflow attack for the Crossfire Linux game [README](python/crossfire/README.md) 
 
+## C
+
+*   `slmail-linux.c`: A buffer overflow attack for SLMail 5.5 [README](c/slmail-linux/README.md) 
+
 ## Note
 
 All program output files are by convention use the `.txt.` extension which are ignored by the
