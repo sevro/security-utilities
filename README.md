@@ -33,6 +33,15 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 *   `slmail-linux.c`: A buffer overflow attack for SLMail 5.5 compiled for Linux [README](c/slmail-linux/README.md) 
 *   `slmail-windows.c`: A buffer overflow attack for SLMail 5.5 compiled for Windows [README](c/slmail-windows/README.md) 
 
+## FTP
+
+It is possible to turn FTP into a non-interactive process by providing the Windows
+default FTP client `ftp.exe` with a text file containing FTP commands. This is
+useful in _post exploitation_ when there is a need to upload files and tools to a
+machine.
+
+*   `setup-ftp.sh`: Install and configure a FTP server on (debian like) Linux [README](ftp/pureFTPd/README.md)
+
 ## Note
 
 All program output files are by convention use the `.txt` extension which are ignored by the
