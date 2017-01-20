@@ -1,6 +1,9 @@
 # Security Utilities
 
-Useful scripts, see `README.md` files in script directories for usage and information.
+Useful scripts, see `README.md` files in script directories for individual usage and information.
+This project is mirrored to GitHub from the primary repository on GitLab at
+[https://gitlab.com/datenstrom/sec-utils](https://gitlab.com/datenstrom/sec-utils) and if
+accessed on GitHub may not be the most recent version.
 
 > Legal Disclaimer: usage of tools for attacking web servers without
 > prior mutual consistency can be considered as an illegal activity. it is the final user's 
@@ -12,26 +15,26 @@ Useful scripts, see `README.md` files in script directories for usage and inform
 
 ## bash
 
-*   `subdom.sh`: get subdomain information for a webpage [README](bash/subdom/README.md)
-*   `pingsweep.sh`: Ping sweep a class C network [README](bash/pingsweep/README.md)
-*   `forward_dns.sh`: Run a forward DNS lookup on a domain name for subdomains [README](bash/forward_dns/README.md)
-*   `reverse_dns.sh`: Run a reverse DNS lookup on an IP address and given IP range [README](bash/reverse_dns/README.md)
-*   `dns_zonetransfer.sh`:  Check for DNS server information leakage [README](bash/dns_zonetransfer/README.md)
-*   `port_scan.sh`: Scan the full range (1-65355) on list of IPs [README](bash/port_scan/README.md)
+*   [subdom.sh](bash/subdom/): get subdomain information for a webpage
+*   [pingsweep.sh](bash/pingsweep/): Ping sweep a class C network
+*   [forward_dns.sh](bash/forward_dns/): Run a forward DNS lookup on a domain name for subdomains
+*   [reverse_dns.sh](bash/reverse_dns/): Run a reverse DNS lookup on an IP address and given IP range
+*   [dns_zonetransfer.sh](bash/dns_zonetransfer/):  Check for DNS server information leakage
+*   [port_scan.sh](bash/port_scan/): Scan the full range (1-65355) on list of IPs
 
 ## Python
 
-*   `port_check.py`: Check if a single port is open [README](python/port_check/README.md) 
-*   `pingsweep.py`: Multithreaded ping sweep, and port scanning [README](python/pingsweep/README.md) 
-*   `fuzzer.py`: A fuzzer [README](python/fuzzer/README.md) 
-*   `slmail.py`: A buffer overflow attack for SLMail 5.5 [README](python/SLMail-pwn/README.md) 
-*   `vulnserver.py`: A buffer overflow attack for the `vulnserver.exe` exercise in OSCP [README](python/SLMail-pwn/README.md) 
-*   `crossfire.py`: A buffer overflow attack for the Crossfire Linux game [README](python/crossfire/README.md) 
+*   [port_check.py](python/port_check/): Check if a single port is open 
+*   [pingsweep.py](python/pingsweep/): Multithreaded ping sweep, and port scanning 
+*   [fuzzer.py](python/fuzzer/): A fuzzer 
+*   [slmail.py](python/SLMail-pwn/): A buffer overflow attack for SLMail 5.5 
+*   [vulnserver.py](python/SLMail-pwn/): A buffer overflow attack for the `vulnserver.exe` exercise in OSCP 
+*   [crossfire.py](python/crossfire/): A buffer overflow attack for the Crossfire Linux game
 
 ## C
 
-*   `slmail-linux.c`: A buffer overflow attack for SLMail 5.5 compiled for Linux [README](c/slmail-linux/README.md) 
-*   `slmail-windows.c`: A buffer overflow attack for SLMail 5.5 compiled for Windows [README](c/slmail-windows/README.md) 
+*   [slmail-linux.c](c/slmail-linux/): A buffer overflow attack for SLMail 5.5 compiled for Linux
+*   [slmail-windows.c](c/slmail-windows/): A buffer overflow attack for SLMail 5.5 compiled for Windows 
 
 ## FTP
 
@@ -40,9 +43,9 @@ default FTP client `ftp.exe` with a text file containing FTP commands. This is
 useful in _post exploitation_ when there is a need to upload files and tools to a
 machine.
 
-*   `setup-ftp.sh`: Install and configure a FTP server on (debian like) Linux [README](ftp/pureFTPd/README.md)
+*   [setup-ftp.sh](ftp/pureFTPd/): Install and configure a FTP server on (Debian like) Linux
 
-## Note
+## Note on extension convention
 
 All program output files are by convention use the `.txt` extension which are ignored by the
 `.gitignore`. All files for input are by convention `.dat` which will be tracked.
