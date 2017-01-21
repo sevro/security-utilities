@@ -33,8 +33,8 @@ accessed on GitHub may not be the most recent version.
 
 ## C
 
-*   [slmail_linux.c](c/slmail-linux/): A buffer overflow attack for SLMail 5.5 compiled for Linux
-*   [slmail_windows.c](c/slmail-windows/): A buffer overflow attack for SLMail 5.5 compiled for Windows 
+*   [slmail_linux.c](c/slmail_linux/): A buffer overflow attack for SLMail 5.5 compiled for Linux
+*   [slmail_windows.c](c/slmail_windows/): A buffer overflow attack for SLMail 5.5 compiled for Windows 
 
 ## FTP
 
