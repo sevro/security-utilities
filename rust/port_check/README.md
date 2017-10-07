@@ -25,7 +25,7 @@ Optionally run directly:
 
 ```sh
 cargo run --release 127.0.0.1:8000                                                           INSERT  13:45:41 
-   Compiling port_check v0.1.0 (file:///home/datenstrom/workspace/datenstrom/sec-utils/rust/port_check)
+   Compiling port_check v0.1.0 ()
     Finished release [optimized] target(s) in 1.23 secs
      Running `target/release/port_check '127.0.0.1:8000'`
 Port 127.0.0.1:8000 is open
