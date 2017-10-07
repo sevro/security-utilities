@@ -24,7 +24,7 @@ Port 8.8.8.8:80 is closed
 Optionally run directly:
 
 ```sh
-cargo run --release 127.0.0.1:8000                                                           INSERT  13:45:41 
+cargo run --release 127.0.0.1:8000
    Compiling port_check v0.1.0 ()
     Finished release [optimized] target(s) in 1.23 secs
      Running `target/release/port_check '127.0.0.1:8000'`
