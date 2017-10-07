@@ -31,6 +31,10 @@ accessed on GitHub may not be the most recent version.
 *   [vulnserver.py](python/SLMail-pwn/): A buffer overflow attack for the `vulnserver.exe` exercise in OSCP 
 *   [crossfire.py](python/crossfire/): A buffer overflow attack for the Crossfire Linux game
 
+## Rust
+
+*   [port_check](rust/port_check/): Check if a single port is open 
+
 ## C
 
 *   [slmail_linux.c](c/slmail_linux/): A buffer overflow attack for SLMail 5.5 compiled for Linux
