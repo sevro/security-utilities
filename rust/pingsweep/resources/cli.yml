@@ -1,0 +1,44 @@
+# Command line arguments for pingsweep
+#
+# Note:
+#
+#   Metadata from Cargo.toml is handled inside the application
+#   and `name`, `version`, `author`, and `about` will all be
+#   overriden.
+
+name: a
+version: "b"
+author: c
+about: d
+args:
+    - verbose:
+        short: v
+        long: verbosity
+        multiple: true
+        help: Sets the level of verbosity
+    - threads:
+        short: t
+        long: threads
+        multiple: false
+        takes_value: true
+        help: Number of threads to use
+subcommands:
+    - list:
+        about: Ping a given set of addresses
+        args:
+            - sockets:
+                required: true
+                multiple: true
+                help: List of socket addresses
+            - port:
+                short: p
+                long: ports
+                multiple: true
+                takes_value: true
+                help: Port to be checked across all IP addresses
+    - file:
+        about: Ping a set of addresses from a file
+        args:
+            - FILE:
+                required: true
+                help: Input file with a list of socket addresses

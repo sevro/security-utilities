@@ -1,0 +1,11 @@
+[package]
+name = "pingsweep"
+version = "0.1.0"
+authors = ["Derek Goddeau <datenstrom@protonmail.com>"]
+description = "Checks a list of IP adresses to see if they are up."
+
+[dependencies]
+clap = { version = "2.19.0", features = ["yaml"] }
+
+[profile.release]
+lto = true
