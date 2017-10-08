@@ -34,6 +34,7 @@ accessed on GitHub may not be the most recent version.
 ## Rust
 
 *   [port_check](rust/port_check/): Check if a single port is open 
+*   [pingsweep](rust/pingsweep/): Multithreaded ping sweep, and port scanning 
 
 ## C
 
