@@ -24,21 +24,21 @@ pub fn run(config: Config) -> Result<(), Box<Error>> {
         Ok(file) => file,
         Err(err) => return Err(Box::new(err)),
     };
-    let mut reader = BufReader::new(file);
+    let reader = BufReader::new(file);
 
     let mut total_bytes = 0;
     let mut byte_counts = [0 as u64; 256];
     for byte in reader.bytes() {
         total_bytes += 1;
         match byte {
-            Ok(b) => byte_counts[byte.unwrap() as usize] += 1,
+            Ok(b) => byte_counts[b as usize] += 1,
             Err(err) => return Err(Box::new(err)),
         }
     }
 
     let mut entropy: f64 = 0.0;
-    let mut probability: f64 = 0.0;
-    for (idx, count) in byte_counts.iter().enumerate() {
+    let mut probability: f64;
+    for count in byte_counts.iter() {
         if *count == 0 { continue };
         probability = 1.0 * *count as f64 / total_bytes as f64;
         entropy -= probability * probability.log(256.0);
