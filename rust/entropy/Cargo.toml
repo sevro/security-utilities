@@ -1,0 +1,6 @@
+[package]
+name = "entropy"
+version = "0.1.0"
+authors = ["Derek Goddeau <datenstrom@protonmail.com>"]
+
+[dependencies]
