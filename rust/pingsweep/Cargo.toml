@@ -5,6 +5,7 @@ authors = ["Derek Goddeau <datenstrom@protonmail.com>"]
 description = "Checks a list of IP adresses to see if they are up."
 
 [dependencies]
+subnet = { git = "https://gitlab.com/starshell/subnet.git", features = ["nightly"]}
 clap = { version = "2.19.0", features = ["yaml"] }
 
 [profile.release]
