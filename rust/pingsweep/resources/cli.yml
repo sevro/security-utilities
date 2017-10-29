@@ -24,7 +24,7 @@ args:
         help: Number of threads to use
 subcommands:
     - list:
-        about: Ping a given set of addresses
+        about: Ping a given list of addresses
         args:
             - sockets:
                 required: true
@@ -42,3 +42,16 @@ subcommands:
             - FILE:
                 required: true
                 help: Input file with a list of socket addresses
+    - cidr:
+        about: Ping a given set of addresses
+        args:
+            - subnet:
+                required: true
+                multiple: true
+                help: List of subnets in CIDR format
+            - ports:
+                short: p
+                long: ports
+                multiple: true
+                takes_value: true
+                help: Port to be checked across all IP addresses

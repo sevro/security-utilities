@@ -4,11 +4,14 @@
 
 #[macro_use]
 extern crate clap;
+extern crate subnet;
 extern crate pingsweep;
+
+mod config;
 
 use std::process;
 use clap::App;
-use pingsweep::Config;
+use pingsweep::config::Config;
 
 fn main() {
 
